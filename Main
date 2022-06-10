@@ -1,1 +1,59 @@
+using System;
+using UnityEngine;
 
+public class CubeBehavior : MonoBehaviour      {
+
+    // Wall w;
+    private Vector3 v;
+    private Vector3 ogLoc;
+    private Vector3 d;
+    private Rigidbody rb;
+
+    // Start is called before the first frame update
+    void Start()    {
+
+        rb = GetComponent<Rigidbody>();        
+        ogLoc = gameObject.transform.position;
+        v = Input.mousePosition;
+
+    }
+
+
+    // Update is called once per frame
+    void Update()    {
+
+        if(Input.GetButtonDown("Fire1"))    {
+
+        // bool b = gameObject.transform.hasChanged;
+
+        // if(b)    {
+        //     float d = Vector3.Distance(ogLoc, gameObject.transform.position);
+        //     b = false;
+        // }
+
+        rb.isKinematic = true;
+        gameObject.transform.Translate(ogLoc);      //doesn't work again...
+        rb.isKinematic = false;
+    
+
+        // Instantiate(gameObject, new Vector3(oX, oY, oZ), Quaternion.identity);
+        }
+
+    }
+
+    void OnMouseDrag()         {
+
+        v = Input.mousePosition;
+        //Goal is to have the force vector go in the direction the mouse is dragged
+        rb.AddForce(v/10, ForceMode.Force);
+        
+    }
+
+    public Vector3 GetMouseAsWorldPoint()        {
+        //coords of mouse (x,y,z)
+        Vector3 mousePoint = Input.mousePosition;
+
+        return mousePoint;
+    }
+
+}
